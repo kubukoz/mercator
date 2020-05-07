@@ -55,7 +55,7 @@ lazy val buildSettings = Seq(
     ScmInfo(url("https://github.com/propensive/mercator"),
             "scm:git:git@github.com:propensive/mercator.git")
   ),
-  crossScalaVersions := "0.24.0-RC1" :: Nil, //"2.12.8" :: "2.13.0" :: Nil,
+  crossScalaVersions := "0.25.0-bin-20200506-93ef012-NIGHTLY" :: Nil, //"2.12.8" :: "2.13.0" :: Nil,
   scalaVersion := crossScalaVersions.value.head
 )
 

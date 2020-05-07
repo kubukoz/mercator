@@ -18,7 +18,7 @@
 
 */
 package mercator
-
+/* 
 import scala.language.higherKinds
 import scala.reflect.macros._
 import scala.collection.generic.CanBuildFrom
@@ -96,7 +96,7 @@ object Mercator {
     """
   }
 }
-
+ */
 trait Functor[F[_]] {
   type Apply[X] = F[X]
   def point[A](value: A): F[A]

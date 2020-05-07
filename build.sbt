@@ -2,15 +2,15 @@
 import com.softwaremill.PublishTravis.publishTravisSettings
 import sbtcrossproject.crossProject
 
-lazy val core = crossProject(JVMPlatform, JSPlatform)
+lazy val core = crossProject(JVMPlatform/* , JSPlatform */)
   .in(file("core"))
   .settings(buildSettings)
   .settings(publishSettings)
-  .settings(scalaMacroDependencies)
+  .settings(libraryDependencies ++= (if(!isDotty.value) scalaMacroDependencies(scalaVersion.value) else Seq()))
   .settings(moduleName := "mercator")
 
 lazy val coreJVM = core.jvm
-lazy val coreJS = core.js
+// lazy val coreJS = core.js
 
 lazy val tests = project
   .in(file("tests"))
@@ -21,7 +21,7 @@ lazy val tests = project
   .dependsOn(coreJVM)
 
 lazy val root = (project in file("."))
-  .aggregate(coreJVM, coreJS, tests)
+  .aggregate(coreJVM/* , coreJS */, tests)
   .settings(buildSettings)
   .settings(publishSettings)
   .settings(publishTravisSettings)
@@ -55,7 +55,7 @@ lazy val buildSettings = Seq(
     ScmInfo(url("https://github.com/propensive/mercator"),
             "scm:git:git@github.com:propensive/mercator.git")
   ),
-  crossScalaVersions := "2.12.8" :: "2.13.0" :: Nil,
+  crossScalaVersions := "0.24.0-RC1" :: "2.12.8" :: "2.13.0" :: Nil,
   scalaVersion := crossScalaVersions.value.head
 )
 
@@ -80,7 +80,7 @@ lazy val publishSettings = ossPublishSettings ++ Seq(
   sonatypeProfileName := "com.propensive",
 )
 
-lazy val scalaMacroDependencies: Seq[Setting[_]] = Seq(
-  libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value,
-  libraryDependencies += "org.scala-lang" % "scala-compiler" % scalaVersion.value
+def scalaMacroDependencies(scalaVersion: String) = Seq(
+  "org.scala-lang" % "scala-reflect" % scalaVersion,
+  "org.scala-lang" % "scala-compiler" % scalaVersion
 )

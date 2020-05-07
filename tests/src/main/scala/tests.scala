@@ -25,17 +25,17 @@ import scala.language.higherKinds
 object Tests {
   
   def main(args: Array[String]): Unit = {
-    applicative[Option]
-    monadic[({ type L[W] = Either[String, W] })#L]
-    filterable[Seq]
+    // applicative[Option]
+    // monadic[({ type L[W] = Either[String, W] })#L]
+    // filterable[Seq]
 
-    def increment[F[_]: Monadic](xs: F[Int]) = for(x <- xs) yield x + 1
+    // def increment[F[_]: Monadic](xs: F[Int]) = for(x <- xs) yield x + 1
 
-    increment(List(1, 2, 3))
-    increment(Option(4))
-    increment(Iterable(5))
-    increment[({ type L[W] = Either[String, W] })#L](Left(""))
+    // increment(List(1, 2, 3))
+    // increment(Option(4))
+    // increment(Iterable(5))
+    // increment[({ type L[W] = Either[String, W] })#L](Left(""))
 
-    ()
+    // ()
   }
 }
